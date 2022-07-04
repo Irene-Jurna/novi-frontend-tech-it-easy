@@ -219,3 +219,28 @@ for (let i = 0; i < inventory.length; i++) {
 console.log(totalTVsSold);
 
 //2b: We maken het aantal verkochte tv's groen op de pagina
+const tvElement = document.getElementById('amountOfTVsSold');
+tvElement.innerHTML = `<p>Totaal aantal verkochte TV's: ${totalTVsSold}.`;
+tvElement.style.color = 'green';
+
+//2c: We maken een script dat berekent hoeveel tv's er zijn ingekocht
+let tvOriginalStock = 0;
+for (let i = 0; i < inventory.length; i++) {
+    tvOriginalStock += inventory[i].originalStock;
+}
+
+console.log(tvOriginalStock);
+
+//2d: We maken het aantal ingekochte tv's blauw op de pagina
+const amountOfTVsOriginalInStock = document.getElementById('amountOfTVsStockedTotal');
+amountOfTVsOriginalInStock.innerHTML = `<p>Totaal aantal tv's ingekocht: ${tvOriginalStock}.`;
+amountOfTVsOriginalInStock.style.color = 'blue';
+
+//2e: We maken een script dat berekent hoeveel tv's er nog verkocht moeten worden
+
+let totalTVsInStock = 0;
+for (let i = 0; i < inventory.length; i++) {
+    totalTVsInStock += inventory[i].originalStock - inventory[i].sold;
+}
+
+console.log(totalTVsInStock);

@@ -255,12 +255,11 @@ const listTVs = document.getElementById('listOfTVBrands');
 listTVs.innerHTML = `${tvBrands}`;
 
 //3b: We maken een lijst waarin je alle tv merken ziet (functie)
-//Note: deze zie je alleen in de console, niet op de webpagina zelf, omdat de lijst van 3a al te zien is
 
 const getBrandList = (inventory) => {
     let brandList = [];
     for (let i = 0; i < inventory.length; i++) {
-    brandList += inventory[i].brand
+        brandList.push(inventory[i].brand);
     }
 
     return brandList;
@@ -271,12 +270,51 @@ console.log(getBrandList(inventory));
 // OPDRACHT 4 - Functies
 
 // 4a: We maken een lijst voor een tv met informatie over het merk, type en naam. Bijvoorbeeld: Philips 43PUS6504/12 - 4K TV of NIKKEI NH3216SMART - HD smart TV.
+//
+// function getDetailedList(arr, index) {
+//     const tvContainer = document.getElementById('containerWithTV');
+//     tvContainer.textContent += `${arr[index].brand} ${arr[index].type} - ${arr[index].name}`;
+// }
+//
+// getDetailedList(inventory,1);
 
-function getDetailedList(arr, index) {
-    const tvContainer = document.getElementById('containerWithTV');
-    tvContainer.textContent += `${arr[index].brand} ${arr[index].type} - ${arr[index].name}`;
+function getDetailedList(arr) {
+  const tvContainer = document.getElementById('containerWithTV');
+  tvContainer.textContent += `${arr.brand} ${arr.type} - ${arr.name}`;
 }
 
-getDetailedList(inventory,1);
+getDetailedList(inventory[4]);
 
+// 4b: Wat is de prijs van een specifieke tv? Daarvoor gaan we een functie maken.
 
+function getTVPrices(tvprice) {
+    const priceOfTV1 = document.getElementById('priceOfOneTV');
+    priceOfTV1.textContent = `€${tvprice.price},-`;
+}
+
+getTVPrices(inventory[4]);
+
+//4c: Wat zijn alle beschikbare schermgroottes van een tv? We maken er een lijst van met zowel de afmetingen in inch als cm (for loop). Als een tv maar één schermgrootte heeft ([32]) wordt de output 32 inch (81 cm). Wanneer een tv vier schermgroottes heeft ([43, 50, 55, 58]) wordt de output 43 inch (109 cm) | 50 inch (127 cm) | 58 inch (147 cm). Let op: om één string te genereren uit een array van schermgroottes zul je een for-loop voor moeten gebruiken.
+
+function getAvailableSizes(avaiableSize) {
+    let tvSizes = "";
+    for (let i = 0; i < avaiableSize.length; i++) {
+        let sizeInInch =+ avaiableSize[i];
+        let sizeInCM = Math.floor(sizeInInch * 2.54);
+        tvSizes = `${sizeInInch} (${sizeInCM} cm)`;
+    }
+    return tvSizes;
+}
+
+const screenSizesTv = document.getElementById('tvSizesinInchAndCM');
+screenSizesTv.textContent = getAvailableSizes(inventory[4].availableSizes);
+
+//4d: Combineer de output van 4a, 4b en 4c
+
+function getAllInformations(allInformation) {
+    let allInfo = `${getDetailedList()} ${getTVPrices()} ${getAvailableSizes()}`;
+    return allInfo;
+}
+
+const allInfoGathered = document.getElementById('allInfoTogether');
+allInfoGathered.textContent = getAllInformations(inventory[4]);

@@ -238,9 +238,45 @@ amountOfTVsOriginalInStock.style.color = 'blue';
 
 //2e: We maken een script dat berekent hoeveel tv's er nog verkocht moeten worden
 
-let totalTVsInStock = 0;
-for (let i = 0; i < inventory.length; i++) {
-    totalTVsInStock += inventory[i].originalStock - inventory[i].sold;
+let totalTVsInStock = tvOriginalStock - totalTVsSold;
+const sumTVsCurrentlyInStock = document.getElementById('sumOfTVsSoldMinusTVsStocked');
+sumTVsCurrentlyInStock.innerHTML = `<p>Hoeveelheid tv's die nog verkocht moet worden: ${totalTVsInStock}.`;
+sumTVsCurrentlyInStock.style.color = 'red';
+
+//OPDRACHT 3 - Array methoden en functies
+
+//3a: We maken een lijst waarin je alle tv merken in een lijst op de pagina ziet. Deze lijst werkt ook bij honderden merknamen (map methode)
+
+const tvBrands = inventory.map((tvBrand) => {
+    return tvBrand.brand;
+});
+
+const listTVs = document.getElementById('listOfTVBrands');
+listTVs.innerHTML = `${tvBrands}`;
+
+//3b: We maken een lijst waarin je alle tv merken ziet (functie)
+//Note: deze zie je alleen in de console, niet op de webpagina zelf, omdat de lijst van 3a al te zien is
+
+const getBrandList = (inventory) => {
+    let brandList = [];
+    for (let i = 0; i < inventory.length; i++) {
+    brandList += inventory[i].brand
+    }
+
+    return brandList;
+};
+
+console.log(getBrandList(inventory));
+
+// OPDRACHT 4 - Functies
+
+// 4a: We maken een lijst voor een tv met informatie over het merk, type en naam. Bijvoorbeeld: Philips 43PUS6504/12 - 4K TV of NIKKEI NH3216SMART - HD smart TV.
+
+function getDetailedList(arr, index) {
+    const tvContainer = document.getElementById('containerWithTV');
+    tvContainer.textContent += `${arr[index].brand} ${arr[index].type} - ${arr[index].name}`;
 }
 
-console.log(totalTVsInStock);
+getDetailedList(inventory,1);
+
+
